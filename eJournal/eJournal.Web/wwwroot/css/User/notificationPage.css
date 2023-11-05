@@ -1,0 +1,19 @@
+﻿
+.dropdown-menu {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    white-space: nowrap;
+    overflow-x: auto;
+    max-width: 300px;
+}
+
+.checked {
+    background-color:white; 
+}
+
+.unchecked {
+    background-color: lightgray;
+}

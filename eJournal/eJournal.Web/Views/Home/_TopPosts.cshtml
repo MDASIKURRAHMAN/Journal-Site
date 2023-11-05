@@ -1,0 +1,15 @@
+﻿@model List<BlogViewModel>
+<div class="card" id="top-posts">
+    <div class="card-header bg-primary text-white">
+        Top 5 Recent Posts
+    </div>
+    <ul class="list-group list-group-flush">
+        @foreach (var post in Model)
+        {
+            <li class="list-group-item">
+                <a href="@Url.Action("Index", "Home", new { blogid = post.BlogId })">@post.BlogTitle</a>
+            </li>
+        }
+    </ul>
+</div>
+

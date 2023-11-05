@@ -1,0 +1,42 @@
+﻿@model BlogCreateViewModel;
+<div class="modal fade" id="create-blog-modal" tabindex="-1" role="dialog" aria-labelledby="create-blog-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form asp-action="Create" asp-controller="Home" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                <h5 class="modal-title" id="create-blog-modal-title">Create a Blog</h5>
+                    <button type="button" class="close" data-dismiss="create-blog-modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div>
+                        <label class="col-sm-2" asp-for="BlogTitle">Blog Title: </label>
+                        <input class="col-sm-9" asp-for="BlogTitle" required/>
+                    </div>
+                    <div class="create-modal-text-div my-3">
+                        <label class="col-sm-2" asp-for="BlogText">Blog Text: </label>
+                        <textarea class="col-sm-9" id="create-modal-blog-text" asp-for="BlogText" required></textarea>
+                    </div>
+                    <div class="my-3">
+                        <label class="col-sm-2" asp-for="Images">Attach Image: </label>
+                        <input class="col-sm-9 create-modal-blog-image" asp-for="Images" type="file" multiple accept=".png, .jpeg, .jpg"/> <br />
+                    </div>
+                    <div class="">
+                        <label class="col-sm-2"></label>
+                        <span contenteditable onkeypress="event.preventDefault()" onpaste="event.preventDefault()" style="caret-color: transparent;" class="fa-solid fa-circle-exclamation" data-bs-toggle="tooltip" data-bs-html="true" data-bs-trigger="hover focus" title="Changing images will remove previously attached images"></span>
+                        Changing images will remove previously attached images
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src=""></script>
+}

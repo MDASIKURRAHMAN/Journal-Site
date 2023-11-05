@@ -1,0 +1,166 @@
+﻿@using eJournal.Domain.Models;
+@model List<BlogViewModel>;
+@using eJournal.Web.Constants;
+@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "Home Page";
+    var cappedBlogLength = Constants.CappedBlogLength;
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/home_index.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="custom-container">
+
+    <div class="utilities-holder">
+        <div class="create-input">
+            <span class="create-input-img"><img class="create-input-img" src="@ViewBag.LoggedInUserImage" /></span>
+            <input type="text" id="create-blog-input-id" placeholder="Post What's on your mind" />
+        </div>
+        <div class="create-button">
+            <span><input type="checkbox" name="filterMyCreations" id="filter-my-creations" @ViewBag.FilterMyCreations /> <label for="filter-my-creations">Filter my Creations</label></span>
+            <button class="btn btn-outline-primary" id="create-blog-button-id"><i class="fa fa-solid fa-plus"></i> Create</button>
+        </div>
+        <div class="update-blog-modal-container">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            @if (Model.Any())
+            {
+                @foreach (var blog in Model)
+                {
+                    <div class="card my-4">
+                        <div class="card-header card-header-custom-style">
+                            <div>
+                                <img class="blog-user-image" src="@blog.UserImage" />
+                            </div>
+                            <div>
+                                <input id="blog-id" hidden value="@blog.BlogId" />
+                                <input id="user-id" hidden value="@blog.UserId" />
+                                <a asp-action="Profile" asp-controller="User" asp-route-bloguserId="@blog.UserId"> <h5>@blog.UserName</h5></a>
+                                <h6>@blog.CreatedAt.ToString("MMMM dd, yyyy")</h6>
+                            </div>
+
+                            @if (blog.UserId ==Convert.ToInt64(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                            {
+                                <div class="action-button">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle m-3  btn btn-primary" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu ">
+                                            <li>
+                                                <button id="update-blog-button-id" class="dropdown-item btn btn-outline-primary" onclick="updateBlog(@blog.BlogId)">
+                                                    <i class="fa fa-edit edit-icon"></i> Update Post
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" id="delete-blog-button-id" class="dropdown-item btn btn-outline-danger" onclick="DeleteBlog(@blog.BlogId)">
+                                                    <i class="fa fa-trash"></i> Delete Post
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">@blog.BlogTitle</h3>
+                            @if (blog.BlogText.Length > cappedBlogLength)
+                            {
+                                <div class="capped-blog-text">
+                                    <p class="card-text">@blog.BlogText.Substring(0, cappedBlogLength)<a class="see-more">[...see more]</a></p>
+                                </div>
+                                <div class="uncapped-blog-text uncapped-hide">
+                                    <p class="card-text">@blog.BlogText<a class="see-less">[see less]</a></p>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="card-text">@blog.BlogText</p>
+                            }
+                        </div>
+                        <div class="card-footer card-footer-custom-style">
+                            <div>
+                                <input class="blog-id" value="@blog.BlogId" hidden />
+                                <span class="like-count">@blog.TotalLikes</span>
+                                @if (blog.IsLikedByMe)
+                                {
+                                    <span class="like liked"> Likes<i class="mx-2 fa-solid fa-thumbs-up"></i></span>
+                                    <span class="like unliked my-custom-hide"> Likes<i class="mx-2 fa-regular fa-thumbs-up"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="like liked my-custom-hide"> Likes<i class="mx-2 fa-solid fa-thumbs-up"></i></span>
+                                    <span class="like unliked"> Likes<i class="mx-2 fa-regular fa-thumbs-up"></i></span>
+                                }
+                            </div>
+                            <div>
+                                <input class="blog-id" hidden value="@blog.BlogId" />
+                                <span>@blog.TotalComments</span>
+                                <span class="create-or-show-comment">Comments</span>
+                                <span class="comment-toggle" style="display:none">Comments</span>
+                            </div>
+                        </div>
+                        <div class="comment-utilities-holder">
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+
+                @if (@ViewBag.SearchText != null)
+                {
+                    <div class="no-post">
+                        <h2 class="text-center text-danger my-5">No Blog has been posted containing your searched text</h2>
+                        <h2 class="text-center text-danger my-3">Sorry! Please search with appropriate text.</h2>
+                        <a type="button" class="btn btn-outline-primary" style="margin:auto" asp-action="Index" asp-controller="Home"><i class="fa fa-solid fa-arrow-left"></i> Back to home page</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="no-post">
+                        <h2 class="text-center my-5">No Blog has been posted yet.</h2>
+                        <h2 class="text-center my-3">Become the Pioneer of a great Journey</h2>
+                        <button class="btn btn-outline-primary" id="create-blog-button-id" style="margin:auto"><i class="fa fa-solid fa-plus"></i> Create</button>
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-md-4 my-4">
+            <partial name="_TopPosts"></partial>
+            <div class="mt-4">
+                <partial name="_TopPopularPosts"></partial>
+            </div>
+        </div>
+        <partial name="_PaginationPartial" model="@ViewBag.Pagination"></partial>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+
+                var lastEmail = `@TempData["LastUserEmail"]`;
+                var lastImage = `@TempData["LastUserImage"]`;
+                var lastname = `@TempData["LastUsername"]`;
+
+                if (lastname !== ``) {
+                    localStorage.setItem("LastUserEmail", lastEmail);
+                    localStorage.setItem("LastUserImage", lastImage);
+                    localStorage.setItem("LastUsername", lastname);
+                }
+
+                setUserName();
+
+            }
+        }
+    </script>
+    <script src="~/js/blog_index.js"></script>
+ }

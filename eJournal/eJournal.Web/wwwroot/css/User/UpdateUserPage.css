@@ -1,0 +1,65 @@
+﻿#image-input {
+    margin-left: 32%;
+    margin-top: -10%;
+}
+
+.col-md-8 {
+    flex: 0 0 auto;
+    width: 43.666667%;
+    margin-left: 340px;
+}
+
+.form-group {
+    margin-bottom: -9px;
+}
+
+.form-control {
+    border: 1.7px inset #ced4da !important;
+}
+
+#remove-button {
+    margin-top: -10px;
+}
+
+.justify-content-between {
+    justify-content: flex-end !important;
+}
+
+#radio-button {
+    margin-top: -5px;
+    display: flex !important;
+}
+
+#no-button {
+    margin-left: 20px;
+}
+
+.text-center {
+    text-align: center !important;
+    display: flex;
+    zoom: 110%;
+}
+
+.custom-btn {
+    width: 133px !Important;
+    height: 40px !important;
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#profile-picture {
+    width: 140px;
+    height: 100px;
+}
+
+input[type=radio] {
+    margin-right: 7px;
+}
+
+.error-message {
+    margin-top: -9px !important;
+    margin-bottom: 30px !important;
+}

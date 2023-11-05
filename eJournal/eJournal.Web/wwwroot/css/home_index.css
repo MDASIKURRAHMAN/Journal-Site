@@ -1,0 +1,255 @@
+﻿#create-blog-input-id {
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+}
+
+.uncapped-hide {
+    display: none;
+}
+
+.blog-user-image {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-left: 4px;
+}
+
+.card-header-custom-style {
+    display: flex;
+    column-gap: 20px;
+    padding: 0;
+    align-items: center;
+}
+
+.card-footer-custom-style {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.create-input {
+    display: flex;
+}
+
+.create-button {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px;
+}
+
+.create-input-img {
+    height: 50px;
+    flex-basis: 10%;
+    border-radius: 5px;
+}
+
+.utilities-holder {
+    border: 1px solid grey;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.no-post {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+#create-modal-blog-text {
+    height: 35vh;
+    margin-left: 4px;
+}
+
+.create-modal-text-div {
+    display: flex;
+    align-items: center;
+}
+
+#update-modal-blog-text {
+    height: 35vh;
+    margin-left: 4px;
+}
+
+
+.update-modal-text-div {
+    display: flex;
+    align-items: center;
+}
+
+.tooltip-inner {
+    opacity: 1 !important;
+    filter: opacity(100);
+}
+
+span.fa-solid {
+    outline: none;
+}
+
+
+/*comment related css*/
+.comment-user-image {
+    padding: 8px;
+}
+
+    .comment-user-image img {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+    }
+
+.comment-create-container {
+    display: flex;
+    margin: 5px;
+}
+
+.comment-text-area {
+    outline: none;
+    border: none;
+    flex-grow: 1;
+    resize: none;
+}
+
+.comment-textarea-create-button, .comment-textarea-edit-button {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    width: 99%;
+    display: flex;
+}
+
+/*comment display styles*/
+.comment-display {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-username-text {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+}
+
+.comment-username-createdat {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-display-username {
+    margin: 0;
+    margin-right: 7px;
+}
+
+.comment-display-commenttext {
+    margin: 0;
+}
+
+.comment-display-createdat {
+    margin: 0;
+}
+
+.create-or-show-comment, .comment-toggle {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* comment edit related css */
+.comment-edit-button, .comment-delete-button, .comment-reply-button {
+    padding: 0px 5px;
+}
+
+.comment-edit-submit-button {
+    margin-left: 2%;
+}
+
+.comment-edit-area {
+    width: 84%;
+}
+
+.my-custom-hide {
+    display: none;
+}
+
+.action-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom:5px;
+    max-height: 50px;
+}
+.m-3 {
+    margin: 0.5rem !important;
+}
+.edit-icon{
+    margin-top: 5px;
+    margin-right: 2px;
+}
+
+/* Like related css */
+
+.like {
+    cursor: pointer;
+}
+
+
+/* Like related styles of comment */
+
+.comment-edit-button, .comment-delete-button, .comment-reply-button {
+    cursor: pointer;
+}
+
+.comment-like-count {
+    margin-left: auto;
+}
+
+.comment-like-create, .comment-like-delete {
+    cursor: pointer;
+}
+/* Comment reply related styles */
+.comment-reply-textarea {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    width: 90%;
+    margin-right: 1%;
+    margin-left: auto;
+}
+
+.reply-text-area {
+    flex-grow: 1;
+    border: none;
+    resize: none;
+    outline: none;
+
+}
+
+.reply-holder {
+    margin-left: 7%;
+}
+
+.reply-textarea-edit-button {
+    margin-right: 1%;
+}
+
+/* making the application responsive */
+
+.my-custom-show {
+    display: flex;
+}
+
+.comment-edit-area, .comment-reply-area, .reply-edit-area {
+    flex-grow: 1;
+}
+
+.comment-create-button, .comment-reply-submit-button, .comment-edit-submit-button {
+    align-self: flex-end;
+}
+
+.comment-edit-button, .comment-delete-button, .comment-reply-button, .comment-like-create, .comment-like-delete {
+    align-self: flex-start;
+}

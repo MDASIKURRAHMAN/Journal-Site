@@ -1,0 +1,12 @@
+﻿@model CommentCreateViewModel;
+
+<form asp-action="Create" asp-controller="Comment">
+    <div class="comment-create-container">
+        <span class="comment-user-image"><img src="@ViewBag.UserImage" /></span>
+        <div class="comment-textarea-create-button">
+            <textarea class="comment-text-area" asp-for="CommentText" rows="3"></textarea>
+            <a class="btn btn-dark comment-create-button">Comment</a>
+        </div>
+    </div>
+</form>
+ 

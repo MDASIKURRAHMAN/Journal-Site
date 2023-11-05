@@ -1,0 +1,83 @@
+@using System.Security.Claims;
+
+<link rel="stylesheet" href="~/css/User/UserPartialPage.css" asp-append-version="true" />
+
+<ul class="navbar-nav user-nav ">
+    <li class="nav-item">
+        @{
+            var userName = @User.Claims.FirstOrDefault(c => c.Type == "UserName")?.Value;
+            if (userName == null)
+            {
+                userName = User.Identity?.Name;
+            }
+        }
+        <a class="nav-link" id="username-navebar">Hello, @userName</a>
+    </li>
+    <li>
+        <a class="nav-link" title="Notifications" id="notifications-icon" onclick="ShowNotification();"><i class="fa-regular fa-bell"></i></a>
+    </li>
+
+    <sup class="badge" id="notification-count"></sup>
+
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notifications-dropdown-link" id="notifications-dropdown">
+    </div>
+
+    <li class="nav-item">
+        <div class="dropdown">
+            <a class="dropdown-toggle m-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-user-circle-o"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <a class="dropdown-item" id="profile-link" asp-controller="User" asp-action="Profile">Profile</a>
+                <a class="dropdown-item" asp-controller="User" asp-action="Edit">Settings</a>
+                <div class="dropdown-divider"></div>
+                <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <input type="submit" class="dropdown-item" value="Logout" />
+                </form>
+            </ul>
+        </div>
+    </li>
+</ul>
+<script>
+
+    function getNotification() {
+        $.ajax({
+            type: 'GET',
+            url: "/Home/GetAllNotifications",
+            success: function (data) {
+                $('#notifications-dropdown').html(data);
+                var hasNewNotifications = $(data).find('.badge.bg-danger').length > 0;
+                var notificationCount = $(data).find('.badge.bg-danger').length;
+                var bellIcon = $('#notifications-icon').find('i');
+                var notificationBadge = $('#notification-count');
+
+                if (hasNewNotifications) {
+                    bellIcon.removeClass('fa-regular fa-bell');
+                    bellIcon.addClass('fa-solid fa-bell fa-fade');
+                    bellIcon.addClass('text-danger');
+                    bellIcon.attr('data-count', notificationCount);
+                    notificationBadge.text(notificationCount);
+                    notificationBadge.show();
+                }
+                else {
+                    bellIcon.removeClass('fa-solid fa-bell fa-fade');
+                    bellIcon.addClass('fa-regular fa-bell');
+                    bellIcon.removeClass('text-danger');
+                    bellIcon.removeAttr('data-count');
+                    notificationBadge.hide();
+                }
+            },
+            error: function () {
+                alert('Error retrieving notifications.');
+            }
+        });
+    }
+    function ShowNotification() {
+        getNotification();
+        ToggleNotification();
+    }
+    function ToggleNotification() {
+        $('#notifications-dropdown').dropdown('toggle');
+    }
+
+</script>

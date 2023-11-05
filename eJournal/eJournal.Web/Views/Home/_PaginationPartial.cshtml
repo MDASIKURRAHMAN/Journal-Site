@@ -1,0 +1,91 @@
+﻿@model Pagination;
+@{
+    int previousPage = Model.CurrentPage - 1;
+    int nextPage = Model.CurrentPage + 1;
+    string filterMyCreations;
+    if(ViewBag.FilterMyCreations == "checked")
+    {
+        filterMyCreations = "filterMyCreations=true&";
+    }
+    else
+    {
+        filterMyCreations = "";
+    }
+
+    string searchText;
+    if (!string.IsNullOrEmpty(ViewBag.SearchText))
+    {
+        searchText = "searchText=" + ViewBag.SearchText + "&";
+    }
+    else
+    {
+        searchText = "";
+    }
+   
+}
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @{
+            string queryString = "";
+            if (!string.IsNullOrEmpty(filterMyCreations))
+            {
+                queryString += $"{filterMyCreations}";
+            }
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                queryString += $"{searchText}";
+            }
+        }
+        @if (Model.CurrentPage == 1)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="/?@queryString&page=1" tabindex="-1">First Page</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" href="/?@queryString&page=1" tabindex="-1">First Page</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/?@queryString&page=@previousPage" tabindex="-1">Previous</a>
+            </li>
+        }
+
+        @for (int currentIteration = Model.StartIteration; currentIteration <= Model.EndIteration; currentIteration++)
+        {
+            if (currentIteration == Model.CurrentPage)
+            {
+                <li class="page-item active"><a class="page-link" href="/?@queryString&page=@currentIteration">@currentIteration</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="/?@queryString&page=@currentIteration">@currentIteration</a></li>
+            }
+        }
+
+        @if (Model.CurrentPage == Model.LastPage)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="/?@queryString&page=@Model.LastPage" tabindex="-1">Last Page</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" href="/?@queryString&page=@nextPage">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/?@queryString&page=@Model.LastPage" tabindex="-1">Last Page</a>
+            </li>
+        }
+    </ul>
+</nav>
+

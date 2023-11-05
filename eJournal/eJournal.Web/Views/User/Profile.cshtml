@@ -1,0 +1,199 @@
+﻿@model eJournal.Domain.Models.User
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<link rel="stylesheet" href="~/css/User/UserProfile.css" asp-append-version="true" />
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card p-3 py-4">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    @if (Model.ImageId != null)
+                    {
+                        <img src="/@Model.Image?.ImagePath" width="100" class="rounded-circle mb-3">
+                    }
+                    else
+                    {
+                        <img src="@Model.Image?.ImagePath" width="100" class="rounded-circle mb-3">
+                    }
+                    @if (Model != null)
+                    {
+                        <p class="text-muted">@Model.Bio</p>
+                    }
+                    else
+                    {
+                        <h4>There is no Bio</h4>
+                    }
+                </div>
+                <div class="col-md-9 mt-3">
+                    @if (Model != null)
+                    {
+                        <h4>@Model.FirstName @Model.LastName</h4>
+                        <p class="text-muted">@Model.Designation</p>
+                    }
+                    else
+                    {
+                        <h4>N/A</h4>
+                    }
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">User Name</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.UserName != null)
+                            {
+                                @if (@Model.UserName.Length > 0)
+                                {
+                                    <p class="text-muted mb-0">@Model.UserName</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Department</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.Department != null)
+                            {
+                                @if (@Model.Department.Length > 0)
+                                {
+                                    <p class="text-muted mb-0">@Model.Department</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Is Active</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.IsActive != null)
+                            {
+                                @if (@Model.IsActive)
+                                {
+                                    <p class="text-muted mb-0">Yes</p>
+                                }
+                                else
+                                {
+                                    <p class="text-muted mb-0">No</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Gender</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.Gender != null)
+                            {
+                                @if (@Model.Gender.Length > 0)
+                                {
+                                    <p class="text-muted mb-0">@Model.Gender</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">BirthYear</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model != null)
+                            {
+                                <p class="text-muted mb-0">@Model.DateOfBirth.ToString("yyyy-MM-dd")</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-md-9">
+
+                            @if (Model != null)
+                            {
+                                <p class="text-muted mb-0">@Model.UserEmail</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Phone</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model.Phone != null)
+                            {
+                                @if (@Model.Phone.Length>0)
+                                {
+                                    <p class="text-muted mb-0">@Model.Phone</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="mb-0">Start Date</p>
+                        </div>
+                        <div class="col-md-9">
+                            @if (Model != null)
+                            {
+                                <p class="text-muted mb-0">@Model.CreatedAt.Date.ToString("yyyy-MM-dd")</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">N/A</p>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="buttons">
+                         @if (@Model.UserId ==Convert.ToInt64(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                        {
+                        <a type="button" asp-controller="User" asp-action="Edit" class="btn btn-outline-primary px-4">Edit</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

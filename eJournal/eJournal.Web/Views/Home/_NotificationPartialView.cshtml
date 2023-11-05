@@ -1,0 +1,19 @@
+﻿@using eJournal.Domain.Models;
+@model List<Notification>;
+
+<link rel="stylesheet" href="~/css/User/notificationPage.css" asp-append-version="true" />
+
+<a class="dropdown-item text-danger mb-1 " asp-action="MarkNotificationAsChecked" asp-controller="Home" asp-route-notificationId="0" title="Mark All Notifications as Read">
+    <i class="fas fa-check-double float-end" style="color: #271f51;"></i>
+</a>
+@foreach (var notification in Model.OrderByDescending(n => n.CreateAt))
+{
+    <a class="dropdown-item @(notification.IsChecked ? "" : "font-weight-bold") @(notification.IsChecked ? "checked" : "unchecked")" href="@Url.Action("MarkNotificationAsChecked", "Home", new { notificationId = notification.NotificationId })">
+        @notification.NotificationText
+        @if (!notification.IsChecked)
+        {
+            <span class="badge bg-danger float-end">new</span>
+        }
+    </a>
+}
+
